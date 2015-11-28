@@ -1,0 +1,5 @@
+{
+  "name": "<%= name %>",
+  "logic": "./<%= name %>.js",
+  "template": "./<%= name %>.html"
+}
