@@ -1,5 +1,8 @@
 {
   "name": "<%= name %>",
   "logic": "./<%= name %>.js",
-  "template": "./<%= name %>.html"
+  "template": "./<%= name %>.html",
+  "assets": [
+    "./<%= name %>.css"
+  ]
 }

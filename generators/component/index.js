@@ -44,7 +44,7 @@ module.exports = generator.NamedBase.extend({
     this.fs.copyTpl(
       this.templatePath('component.js'),
       this.destinationPath(`components/${dest}/${name}.js`),
-      { name, isCss, className: _.camelCase(name) }
+      { name, isCss, className: _.chain(name).camelCase().capitalize().value() }
     );
 
     this.fs.copyTpl(
