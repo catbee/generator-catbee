@@ -1,5 +1,5 @@
-<% if (isCss) { %>var css = require('./<%= name %>.css');
-var extend = require('catbee-utils').extend;<% } %>
+<% if (isCss) { %>var css = require('./<%= filesName %>.css');
+var { extend } = require('catbee-utils');<% } %>
 
 class <%= className %> {
   <% if (isCss) { %>@extend({ css })<% } %>
