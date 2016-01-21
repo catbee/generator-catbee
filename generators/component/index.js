@@ -45,37 +45,65 @@ module.exports = generator.NamedBase.extend({
         this.path = status.path;
         done();
       }.bind(this));
+    },
+
+    setDirName: function () {
+      var done = this.async();
+
+      this.prompt({
+        type : 'input',
+        name : 'dirName',
+        message : 'Set name to your component directory (default: component name)'
+      }, function (status) {
+        this.dirName = status.dirName;
+        done();
+      }.bind(this));
+    },
+
+    setFilesName: function () {
+      var done = this.async();
+
+      this.prompt({
+        type : 'input',
+        name : 'filesName',
+        message : 'Set name for your component files (default: directory name)'
+      }, function (status) {
+        this.filesName = status.filesName;
+        done();
+      }.bind(this));
     }
   },
 
   writing: function () {
     var name = this.name;
+    var dirName = this.dirName || name;
+    var filesName = this.filesName || dirName;
     var isCss = this._isCss;
     var root = this.root || 'components';
     var pathArg = this.path || '';
-    var dest = path.join(pathArg, name);
+    var dest = path.join(pathArg, dirName);
 
     this.fs.copyTpl(
       this.templatePath('component.js'),
-      this.destinationPath(`${root}/${dest}/${name}.js`),
-      { name, isCss, className: _.chain(name).camelCase().capitalize().value() }
+      this.destinationPath(`${root}/${dest}/${filesName}.js`),
+      { filesName, isCss, className: _.chain(name).camelCase().capitalize().value() }
     );
 
     this.fs.copyTpl(
       this.templatePath('component.json'),
       this.destinationPath(`${root}/${dest}/component.json`),
-      { name }
+      { name, filesName }
     );
 
     this.fs.copyTpl(
       this.templatePath('component.html'),
-      this.destinationPath(`${root}/${dest}/${name}.html`)
+      this.destinationPath(`${root}/${dest}/${filesName}.html`)
     );
 
     if (isCss) {
       this.fs.copyTpl(
         this.templatePath('component.css'),
-        this.destinationPath(`${root}/${dest}/${name}.css`)
+        this.destinationPath(`${root}/${dest}/${filesName}.css`)
       );
     }
   }
