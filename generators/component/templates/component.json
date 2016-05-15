@@ -1,8 +1,8 @@
 {
   "name": "<%= name %>",
   "logic": "./<%= name %>.js",
-  "template": "./<%= name %>.html",
+  "template": "./<%= name %>.html"<% if (isCss) { %>,
   "assets": [
     "./<%= name %>.css"
-  ]
+  ]<% } %>
 }
