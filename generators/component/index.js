@@ -64,7 +64,7 @@ module.exports = generator.NamedBase.extend({
     this.fs.copyTpl(
       this.templatePath('component.json'),
       this.destinationPath(`${root}/${dest}/component.json`),
-      { name }
+      { name, isCss }
     );
 
     this.fs.copyTpl(
