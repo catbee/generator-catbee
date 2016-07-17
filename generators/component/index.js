@@ -2,35 +2,36 @@ const generator = require('yeoman-generator');
 const path = require('path');
 const _ = require('lodash');
 
-module.exports = generator.NamedBase.extend({
+module.exports = generator.Base.extend({
   constructor: function constructor (...args) {
-    generator.NamedBase.apply(this, args);
+    generator.Base.apply(this, args);
+
+    this.argument('name', {
+      type: String,
+      required: true
+    });
   },
 
   prompting: {
     setRoot () {
-      const done = this.async();
-
-      this.prompt({
+      return this.prompt({
         type: 'input',
         name: 'root',
         message: 'Set root path to your components folder (default: components)'
-      }, (status) => {
+      })
+      .then((status) => {
         this.root = status.root || 'components';
-        done();
       });
     },
 
     setPath () {
-      var done = this.async();
-
-      this.prompt({
+      return this.prompt({
         type: 'input',
         name: 'path',
         message: 'Set path to your component folder (optional)'
-      }, (status) => {
+      })
+      .then((status) => {
         this.path = status.path || '';
-        done();
       });
     }
   },
@@ -61,6 +62,6 @@ module.exports = generator.NamedBase.extend({
 function transformToPascalCase (name) {
   return _.chain(name)
     .camelCase()
-    .capitalize()
+    .upperFirst()
     .value();
 }

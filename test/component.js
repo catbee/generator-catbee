@@ -20,7 +20,7 @@ describe('catbee:component', () => {
       ]);
     });
 
-    it('Template file should be empty', () => {
+    it('Template file should be empty, but controller should contain code', () => {
       assert.fileContent('components/TestComponent/component.css', '');
       assert.fileContent('components/TestComponent/template.hbs', '');
       assert.fileContent('components/TestComponent/index.js', /class TestComponent/);
@@ -47,7 +47,7 @@ describe('catbee:component', () => {
       ]);
     });
 
-    it('Template file should be empty', () => {
+    it('Template file should be empty, but controller should contain code', () => {
       assert.fileContent('src/components/Test/component.css', '');
       assert.fileContent('src/components/Test/template.hbs', '');
       assert.fileContent('src/components/Test/index.js', /class Test/);
