@@ -1,82 +1,66 @@
-var generator = require('yeoman-generator');
-var path = require('path');
-var _ = require('lodash');
+const generator = require('yeoman-generator');
+const path = require('path');
+const _ = require('lodash');
 
 module.exports = generator.NamedBase.extend({
-  constructor: function() {
-    generator.NamedBase.apply(this, arguments);
+  constructor: function constructor (...args) {
+    generator.NamedBase.apply(this, args);
   },
 
   prompting: {
-    setRoot: function () {
-      var done = this.async();
+    setRoot () {
+      const done = this.async();
 
       this.prompt({
-        type : 'input',
-        name : 'root',
-        message : 'Set root path to your components folder (default: components)'
-      }, function (status) {
-        this.root = status.root;
+        type: 'input',
+        name: 'root',
+        message: 'Set root path to your components folder (default: components)'
+      }, (status) => {
+        this.root = status.root || 'components';
         done();
-      }.bind(this));
+      });
     },
 
-    setCss: function () {
+    setPath () {
       var done = this.async();
 
       this.prompt({
-        type : 'confirm',
-        name : 'isCss',
-        message : 'Do you need css styles?'
-      }, function (status) {
-        this._isCss = status.isCss;
+        type: 'input',
+        name: 'path',
+        message: 'Set path to your component folder (optional)'
+      }, (status) => {
+        this.path = status.path || '';
         done();
-      }.bind(this));
-    },
-
-    setPath: function () {
-      var done = this.async();
-
-      this.prompt({
-        type : 'input',
-        name : 'path',
-        message : 'Set path to your component folder (optional)'
-      }, function (status) {
-        this.path = status.path;
-        done();
-      }.bind(this));
+      });
     }
   },
 
-  writing: function () {
-    var name = this.name;
-    var isCss = this._isCss;
-    var root = this.root || 'components';
-    var pathArg = this.path || '';
-    var dest = path.join(pathArg, name);
+  writing () {
+    const name = transformToPascalCase(this.name);
+    const dest = path.join(this.path, name);
+    const fullPath = `${this.root}/${dest}`;
 
     this.fs.copyTpl(
-      this.templatePath('component.js'),
-      this.destinationPath(`${root}/${dest}/${name}.js`),
-      { name, isCss, className: _.chain(name).camelCase().capitalize().value() }
+      this.templatePath('index.js'),
+      this.destinationPath(`${fullPath}/index.js`),
+      { className: name }
     );
 
     this.fs.copyTpl(
-      this.templatePath('component.json'),
-      this.destinationPath(`${root}/${dest}/component.json`),
-      { name, isCss }
+      this.templatePath('template.hbs'),
+      this.destinationPath(`${fullPath}/template.hbs`)
     );
 
     this.fs.copyTpl(
-      this.templatePath('component.html'),
-      this.destinationPath(`${root}/${dest}/${name}.html`)
+      this.templatePath('component.css'),
+      this.destinationPath(`${fullPath}/component.css`)
     );
-
-    if (isCss) {
-      this.fs.copyTpl(
-        this.templatePath('component.css'),
-        this.destinationPath(`${root}/${dest}/${name}.css`)
-      );
-    }
   }
 });
+
+function transformToPascalCase (name) {
+  return _.chain(name)
+    .camelCase()
+    .capitalize()
+    .value();
+}
