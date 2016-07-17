@@ -27,7 +27,7 @@ MIT © [Kirill Kaysarov](https://github.com/markuplab)
 
 [npm-image]: https://badge.fury.io/js/generator-catbee.svg
 [npm-url]: https://npmjs.org/package/generator-catbee
-[travis-image]: https://travis-ci.org/markuplab/generator-catbee.svg?branch=master
-[travis-url]: https://travis-ci.org/markuplab/generator-catbee
-[daviddm-image]: https://david-dm.org/markuplab/generator-catbee.svg?theme=shields.io
-[daviddm-url]: https://david-dm.org/markuplab/generator-catbee
+[travis-image]: https://travis-ci.org/catbee/generator-catbee.svg?branch=master
+[travis-url]: https://travis-ci.org/catbee/generator-catbee
+[daviddm-image]: https://david-dm.org/catbee/generator-catbee.svg?theme=shields.io
+[daviddm-url]: https://david-dm.org/catbee/generator-catbee
