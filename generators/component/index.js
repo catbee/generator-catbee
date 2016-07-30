@@ -18,8 +18,7 @@ module.exports = generator.Base.extend({
         type: 'input',
         name: 'root',
         message: 'Set root path to your components folder (default: components)'
-      })
-      .then((status) => {
+      }).then((status) => {
         this.root = status.root || 'components';
       });
     },
@@ -29,8 +28,7 @@ module.exports = generator.Base.extend({
         type: 'input',
         name: 'path',
         message: 'Set path to your component folder (optional)'
-      })
-      .then((status) => {
+      }).then((status) => {
         this.path = status.path || '';
       });
     }

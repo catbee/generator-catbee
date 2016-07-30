@@ -1,4 +1,4 @@
-let css = require('./component.css');
+const css = require('./component.css');
 
 class <%= className %> {
   constructor () {
@@ -9,7 +9,7 @@ class <%= className %> {
     return this.$context.getWatcherData()
       .then((data) => Object.assign({ css }, data));
   }
-};
+}
 
 module.exports = {
   constructor: <%= className %>
